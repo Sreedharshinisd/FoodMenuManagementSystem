@@ -1,0 +1,26 @@
+
+# .NET generated files
+**/bin/
+**/obj/
+**/out/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Angular / Node.js
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+**/appsettings.*.local.json
+
+# Operating system files
+.DS_Store
+Thumbs.db
