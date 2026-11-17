@@ -1,0 +1,103 @@
+
+<div class="page">
+
+  <header class="navbar">
+    <div class="brand">
+      <span class="brand-icon">🍽️</span>
+      <span>Foodie<span class="brand-highlight">Hub</span></span>
+    </div>
+
+    <span class="nav-label">Fresh • Tasty • Delicious</span>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">WELCOME TO FOODIEHUB</p>
+
+    <h1>Good Food. <span>Good Mood.</span></h1>
+
+    <p class="hero-description">
+      Discover delicious food made with love.
+      Your favourite flavours are just a click away!
+    </p>
+
+    <a href="#menu" class="explore-button">Explore Menu ↓</a>
+  </section>
+
+  <main class="menu-section" id="menu">
+
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">OUR SPECIALITIES</p>
+        <h2>Explore Our Menu</h2>
+        <p class="section-description">
+          Delicious dishes waiting for you
+        </p>
+      </div>
+
+      <span class="item-count">
+        {{ foodItems.length }} Items
+      </span>
+    </div>
+
+    <p *ngIf="isLoading" class="message">
+      Loading delicious food...
+    </p>
+
+    <p *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </p>
+
+    <div class="food-grid" *ngIf="!isLoading && !errorMessage">
+
+      <article class="food-card" *ngFor="let food of foodItems">
+
+        <div class="food-image">
+          <div class="image-placeholder">🍛</div>
+
+          <img
+            *ngIf="food.imageUrl"
+            [src]="food.imageUrl"
+            [alt]="food.foodName"
+            (error)="onImageError($event)"
+          />
+
+          <span class="availability"
+            [class.not-available]="!food.isAvailable">
+            {{ food.isAvailable ? 'Available' : 'Sold Out' }}
+          </span>
+        </div>
+
+        <div class="food-details">
+
+          <h3>{{ food.foodName }}</h3>
+
+          <p class="food-description">
+            {{ food.description || 'Delicious food prepared fresh for you.' }}
+          </p>
+
+          <div class="card-footer">
+            <span class="price">₹{{ food.price }}</span>
+            <span class="food-id">#{{ food.foodItemId }}</span>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <div class="empty-message"
+      *ngIf="!isLoading && !errorMessage && foodItems.length === 0">
+      <span>🍽️</span>
+      <h3>No food items yet</h3>
+      <p>Please check back later!</p>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Made with ❤️ for food lovers</p>
+    <p>© 2026 FoodieHub</p>
+  </footer>
+
+</div>

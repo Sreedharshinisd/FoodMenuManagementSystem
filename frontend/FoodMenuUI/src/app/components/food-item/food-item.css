@@ -1,0 +1,282 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: 100vh;
+  background: #fffaf5;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #29221e;
+}
+
+/* Navbar */
+
+.navbar {
+  height: 75px;
+  padding: 0 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.brand-icon {
+  font-size: 30px;
+}
+
+.brand-highlight {
+  color: #ed7135;
+}
+
+.nav-label {
+  color: #777;
+  font-size: 14px;
+}
+
+/* Hero */
+
+.hero {
+  padding: 85px 20px 95px;
+  text-align: center;
+  background: linear-gradient(135deg, #fff0df, #ffe1ce);
+}
+
+.eyebrow {
+  color: #e66b30;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 6vw, 58px);
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.hero h1 span {
+  color: #e66b30;
+}
+
+.hero-description {
+  max-width: 520px;
+  margin: 0 auto 28px;
+  color: #71645c;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.explore-button {
+  display: inline-block;
+  padding: 14px 28px;
+  background: #e66b30;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.explore-button:hover {
+  background: #c9501b;
+  transform: translateY(-3px);
+}
+
+/* Menu */
+
+.menu-section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 65px 25px 85px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 35px;
+  gap: 15px;
+}
+
+.section-heading h2 {
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+
+.section-description {
+  color: #888;
+}
+
+.item-count {
+  background: #fff0e5;
+  color: #d65d28;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Food Cards */
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.food-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 5px 22px rgba(70, 40, 20, 0.08);
+  transition: 0.3s ease;
+  border: 1px solid #f3e9e1;
+}
+
+.food-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(70, 40, 20, 0.15);
+}
+
+.food-image {
+  height: 210px;
+  background: linear-gradient(135deg, #ffe4cc, #fff1e5);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image-placeholder {
+  font-size: 75px;
+}
+
+.food-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.availability {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #e2f8e9;
+  color: #218545;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.availability.not-available {
+  background: #ffe3e3;
+  color: #c0392b;
+}
+
+.food-details {
+  padding: 22px;
+}
+
+.food-details h3 {
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+
+.food-description {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 45px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #f1eae4;
+}
+
+.price {
+  color: #e66b30;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.food-id {
+  color: #aaa;
+  font-size: 12px;
+}
+
+/* Messages */
+
+.message,
+.error,
+.empty-message {
+  text-align: center;
+  padding: 35px;
+  color: #777;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+.empty-message span {
+  font-size: 55px;
+}
+
+.empty-message h3 {
+  margin: 15px 0 8px;
+}
+
+/* Footer */
+
+footer {
+  padding: 25px;
+  background: #29221e;
+  color: #eee;
+  text-align: center;
+  line-height: 2;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 0 5%;
+  }
+
+  .nav-label {
+    font-size: 11px;
+  }
+
+  .hero {
+    padding: 65px 20px;
+  }
+
+  .menu-section {
+    padding: 45px 18px;
+  }
+
+  .section-heading h2 {
+    font-size: 26px;
+  }
+}

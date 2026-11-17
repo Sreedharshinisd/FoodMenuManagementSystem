@@ -23,6 +23,18 @@ builder.Services.AddScoped<IFoodItemRepository, FoodItemRepository>();
 // Service registration
 builder.Services.AddScoped<IFoodItemService, FoodItemService>();
 
+// CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:51090")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure HTTP request pipeline
@@ -32,7 +44,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngular");
+
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
