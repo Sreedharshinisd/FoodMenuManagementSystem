@@ -17,11 +17,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Repository registration
+// FoodItem registrations
 builder.Services.AddScoped<IFoodItemRepository, FoodItemRepository>();
-
-// Service registration
 builder.Services.AddScoped<IFoodItemService, FoodItemService>();
+
+// Menu registrations
+builder.Services.AddScoped<IMenuRepository, MenuRepository>();
+builder.Services.AddScoped<IMenuService, MenuService>();
 
 // CORS configuration
 builder.Services.AddCors(options =>
@@ -29,7 +31,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngular", policy =>
     {
         policy
-            .WithOrigins("http://localhost:51090")
+            .WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -43,12 +45,17 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+// HTTP redirection disabled for local HTTP testing
 
+app.UseRouting();
+
+// Apply CORS policy
 app.UseCors("AllowAngular");
 
 app.UseAuthorization();
 
+// Map API controllers
 app.MapControllers();
 
+// Start application
 app.Run();

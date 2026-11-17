@@ -1,0 +1,125 @@
+
+<div class="menu-page">
+
+  <header class="hero">
+    <div>
+      <span class="eyebrow">RESTAURANT MANAGEMENT</span>
+      <h1>Our <span>Menus</span></h1>
+      <p>Manage your restaurant menus in one place.</p>
+    </div>
+
+    <button class="add-button" (click)="showForm = !showForm">
+      {{ showForm ? '✕ Close' : '+ Add New Menu' }}
+    </button>
+  </header>
+
+  <section class="stats">
+    <div class="stat-card">
+      <span class="stat-icon">🍽️</span>
+      <div>
+        <p>Total Menus</p>
+        <h2>{{ menus.length }}</h2>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-icon">✅</span>
+      <div>
+        <p>Active Menus</p>
+        <h2>{{ menus.filter(menu => menu.isActive).length }}</h2>
+      </div>
+    </div>
+  </section>
+
+  @if (showForm) {
+    <section class="form-card">
+      <h2>Create a New Menu</h2>
+      <p class="form-subtitle">Enter the details of your new menu.</p>
+
+      <form (ngSubmit)="addMenu()">
+        <label for="menuName">Menu Name</label>
+        <input
+          id="menuName"
+          type="text"
+          name="menuName"
+          [(ngModel)]="menuName"
+          placeholder="Example: Breakfast"
+          required
+        />
+
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="description"
+          placeholder="Enter menu description..."
+          rows="3"
+        ></textarea>
+
+        <button class="save-button" type="submit" [disabled]="saving">
+          {{ saving ? 'Saving...' : 'Create Menu' }}
+        </button>
+      </form>
+    </section>
+  }
+
+  @if (successMessage) {
+    <div class="success-message">{{ successMessage }}</div>
+  }
+
+  @if (errorMessage) {
+    <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  <section class="menu-section">
+    <div class="section-heading">
+      <div>
+        <h2>Menu Collection</h2>
+        <p>Explore all your restaurant menus.</p>
+      </div>
+
+      <button class="refresh-button" (click)="loadMenus()">
+        ↻ Refresh
+      </button>
+    </div>
+
+    @if (loading) {
+      <div class="message">Loading menus...</div>
+    }
+    @else if (menus.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">🥗</div>
+        <h3>No menus available</h3>
+        <p>Create your first menu to get started.</p>
+      </div>
+    }
+    @else {
+      <div class="menu-grid">
+        @for (menu of menus; track menu.menuId) {
+          <article class="menu-card">
+            <div class="card-top">
+              <span class="food-icon">🍴</span>
+              <span
+                class="status"
+                [class.inactive]="!menu.isActive">
+                {{ menu.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </div>
+
+            <h3>{{ menu.menuName }}</h3>
+
+            <p class="description">
+              {{ menu.description || 'No description available.' }}
+            </p>
+
+            <div class="card-footer">
+              <span>MENU #{{ menu.menuId }}</span>
+              <span>Restaurant Collection</span>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </section>
+
+</div>

@@ -3,6 +3,8 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FoodItem } from '../../models/food-item.model';
 import { FoodItemService } from '../../services/food-item.service';
+import { Menu } from '../../models/menu.model';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-food-item',
@@ -14,16 +16,22 @@ import { FoodItemService } from '../../services/food-item.service';
 export class FoodItemComponent implements OnInit {
 
   foodItems: FoodItem[] = [];
+  menus: Menu[] = [];
+
   errorMessage = '';
+  menuErrorMessage = '';
   isLoading = true;
+  isMenuLoading = true;
 
   constructor(
     private foodItemService: FoodItemService,
+    private menuService: MenuService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.loadFoodItems();
+    this.loadMenus();
   }
 
   loadFoodItems(): void {
@@ -32,18 +40,33 @@ export class FoodItemComponent implements OnInit {
     this.foodItemService.getFoodItems().subscribe({
       next: (data) => {
         console.log('Food items received:', data);
-
         this.foodItems = data;
         this.isLoading = false;
-
         this.cdr.markForCheck();
       },
       error: (error) => {
         console.error('Error loading food items:', error);
-
         this.errorMessage = 'Unable to load food items. Please try again.';
         this.isLoading = false;
+        this.cdr.markForCheck();
+      }
+    });
+  }
 
+  loadMenus(): void {
+    this.isMenuLoading = true;
+
+    this.menuService.getMenus().subscribe({
+      next: (data) => {
+        console.log('Menus received:', data);
+        this.menus = data;
+        this.isMenuLoading = false;
+        this.cdr.markForCheck();
+      },
+      error: (error) => {
+        console.error('Error loading menus:', error);
+        this.menuErrorMessage = 'Unable to load menus.';
+        this.isMenuLoading = false;
         this.cdr.markForCheck();
       }
     });

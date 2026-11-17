@@ -9,7 +9,7 @@ import { FoodItem } from '../models/food-item.model';
 })
 export class FoodItemService {
 
-  private apiUrl = 'https://localhost:7291/api/FoodItem';
+ private apiUrl = 'http://localhost:5211/api/FoodItem';
 
   constructor(private http: HttpClient) { }
 

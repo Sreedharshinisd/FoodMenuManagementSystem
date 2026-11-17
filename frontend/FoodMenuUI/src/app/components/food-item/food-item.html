@@ -25,10 +25,71 @@
 
   <main class="menu-section" id="menu">
 
+    <!-- MENU COLLECTION -->
     <div class="section-heading">
       <div>
+        <p class="eyebrow">OUR COLLECTION</p>
+        <h2>Discover Our Menus</h2>
+        <p class="section-description">
+          Explore our different food collections
+        </p>
+      </div>
+
+      <span class="item-count">
+        {{ menus.length }} Menus
+      </span>
+    </div>
+
+    <p *ngIf="isMenuLoading" class="message">
+      Loading menus...
+    </p>
+
+    <p *ngIf="menuErrorMessage" class="error">
+      {{ menuErrorMessage }}
+    </p>
+
+    <div class="food-grid" *ngIf="!isMenuLoading && !menuErrorMessage">
+
+      <article class="food-card" *ngFor="let menu of menus">
+
+        <div class="food-details">
+
+          <h3>🍽️ {{ menu.menuName }}</h3>
+
+          <p class="food-description">
+            {{ menu.description || 'Explore delicious dishes in this collection.' }}
+          </p>
+
+          <div class="card-footer">
+            <span class="price">
+              {{ menu.isActive ? 'Active' : 'Inactive' }}
+            </span>
+
+            <span class="food-id">
+              #{{ menu.menuId }}
+            </span>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <div class="empty-message"
+      *ngIf="!isMenuLoading && !menuErrorMessage && menus.length === 0">
+
+      <span>📋</span>
+      <h3>No menus available</h3>
+      <p>Please add menus to see them here!</p>
+
+    </div>
+
+    <!-- FOOD ITEMS -->
+    <div class="section-heading food-heading">
+      <div>
         <p class="eyebrow">OUR SPECIALITIES</p>
-        <h2>Explore Our Menu</h2>
+        <h2>Explore Our Food</h2>
         <p class="section-description">
           Delicious dishes waiting for you
         </p>
