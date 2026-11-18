@@ -5,6 +5,9 @@ using FoodMenuManagementSystem.Repositories.Interfaces;
 using FoodMenuManagementSystem.Services;
 using FoodMenuManagementSystem.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,37 @@ builder.Services.AddScoped<IFoodItemService, FoodItemService>();
 // Menu registrations
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 builder.Services.AddScoped<IMenuService, MenuService>();
+// JWT Token Service
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+// JWT Authentication
+var jwtKey = builder.Configuration["Jwt:Key"]
+    ?? throw new InvalidOperationException("JWT Key is missing.");
+
+var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+var jwtAudience = builder.Configuration["Jwt:Audience"];
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(jwtKey))
+    };
+});
+
+// Authorization
+builder.Services.AddAuthorization();
 
 // CORS configuration
 builder.Services.AddCors(options =>
@@ -45,17 +79,25 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-// HTTP redirection disabled for local HTTP testing
-
 app.UseRouting();
 
-// Apply CORS policy
 app.UseCors("AllowAngular");
 
+// Authentication must come before Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Map API controllers
 app.MapControllers();
+// Seed initial Admin account
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider
+        .GetRequiredService<AppDbContext>();
 
-// Start application
+    await AdminSeeder.SeedAdminAsync(
+        context,
+        builder.Configuration);
+}
+
 app.Run();
