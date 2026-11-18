@@ -1,0 +1,193 @@
+
+<div class="admin-container">
+  <aside class="sidebar">
+    <h2>FoodieHub</h2>
+    <p class="admin-label">ADMIN PANEL</p>
+
+    <nav>
+      <a class="active">Dashboard</a>
+      <a>Food Items</a>
+      <a>Menus</a>
+      <a>Customers</a>
+      <a>Orders</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="topbar">
+      <div>
+        <h1>Admin Dashboard</h1>
+        <p>Manage your food menu and items</p>
+      </div>
+      <div class="admin-profile">Admin</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <h3>Total Food Items</h3>
+        <h2>{{ foodItems.length }}</h2>
+      </div>
+
+      <div class="stat-card">
+        <h3>Available Items</h3>
+        <h2>{{ getAvailableCount() }}</h2>
+      </div>
+
+      <div class="stat-card">
+        <h3>Unavailable Items</h3>
+        <h2>{{ foodItems.length - getAvailableCount() }}</h2>
+      </div>
+
+      <div class="stat-card">
+        <h3>Food Management</h3>
+        <h2>Active</h2>
+      </div>
+    </div>
+
+    <div class="welcome-card">
+      <h2>Welcome to FoodieHub Admin!</h2>
+      <p>
+        Manage your food items and keep your menu updated.
+        View food details, prices and availability.
+      </p>
+    </div>
+
+    <section class="food-section" id="food-items">
+
+      <div class="section-heading">
+        <h2>Manage Food Items</h2>
+        <button type="button" class="add-button" (click)="openAddForm()">
+          + Add Food Item
+        </button>
+      </div>
+
+      <p class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
+
+      <p class="success-message" *ngIf="successMessage">
+        {{ successMessage }}
+      </p>
+
+      <div class="food-form" id="food-item-form" *ngIf="showForm">
+        <h2>
+          {{ editingFoodItemId === null ? 'Add Food Item' : 'Edit Food Item' }}
+        </h2>
+
+        <form (ngSubmit)="saveFoodItem()">
+
+          <label>Food Name</label>
+          <input
+            type="text"
+            name="foodName"
+            [(ngModel)]="foodName"
+            placeholder="Enter food name"
+            required
+          >
+
+          <label>Description</label>
+          <textarea
+            name="description"
+            [(ngModel)]="description"
+            placeholder="Enter food description">
+          </textarea>
+
+          <label>Price</label>
+          <input
+            type="number"
+            name="price"
+            [(ngModel)]="price"
+            placeholder="Enter price"
+            min="0.01"
+            step="0.01"
+            required
+          >
+
+          <label>Image URL (Optional)</label>
+          <input
+            type="text"
+            name="imageUrl"
+            [(ngModel)]="imageUrl"
+            placeholder="Enter image URL"
+          >
+
+          <div *ngIf="editingFoodItemId !== null">
+            <label>
+              <input
+                type="checkbox"
+                name="isAvailable"
+                [(ngModel)]="isAvailable"
+              >
+              Available
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="save-button">
+              {{ editingFoodItemId === null ? 'Add Food Item' : 'Update Food Item' }}
+            </button>
+
+            <button
+              type="button"
+              class="cancel-button"
+              (click)="resetForm()"
+            >
+              Cancel
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="section-heading">
+        <h2>Food Items</h2>
+        <span>{{ foodItems.length }} Items</span>
+      </div>
+
+      <div class="food-grid">
+
+        <div class="food-card" *ngFor="let item of foodItems">
+
+          <div class="food-details">
+            <h3>{{ item.foodName }}</h3>
+
+            <p>
+              {{ item.description || 'No description available.' }}
+            </p>
+
+            <h4>₹{{ item.price }}</h4>
+
+            <span
+              [class.available]="item.isAvailable"
+              [class.unavailable]="!item.isAvailable"
+            >
+              {{ item.isAvailable ? 'Available' : 'Unavailable' }}
+            </span>
+
+            <div class="food-actions">
+
+              <button
+                type="button"
+                class="edit-button"
+                (click)="editFoodItem(item)"
+              >
+                Edit
+              </button>
+
+              <button
+                type="button"
+                class="delete-button"
+                (click)="deleteFoodItem(item.foodItemId)"
+              >
+                Delete
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>

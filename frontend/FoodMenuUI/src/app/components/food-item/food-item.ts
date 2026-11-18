@@ -1,6 +1,8 @@
 
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 import { FoodItem } from '../../models/food-item.model';
 import { FoodItemService } from '../../services/food-item.service';
 import { Menu } from '../../models/menu.model';
@@ -9,7 +11,7 @@ import { MenuService } from '../../services/menu.service';
 @Component({
   selector: 'app-food-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './food-item.html',
   styleUrl: './food-item.css'
 })

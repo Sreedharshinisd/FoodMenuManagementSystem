@@ -1,0 +1,397 @@
+
+/* ===== Main Dashboard ===== */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f6fb;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  background: #20243a;
+  color: white;
+  padding: 30px 20px;
+}
+
+.sidebar h2 {
+  color: #ff9f43;
+  font-size: 27px;
+  margin-bottom: 8px;
+}
+
+.admin-label {
+  color: #aeb3c5;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 35px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar nav a {
+  color: #d5d8e3;
+  text-decoration: none;
+  padding: 13px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background: #ff9f43;
+  color: #20243a;
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 35px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.topbar h1 {
+  color: #20243a;
+  font-size: 30px;
+}
+
+.topbar p {
+  color: #777;
+  margin-top: 6px;
+}
+
+.admin-profile {
+  background: #20243a;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+/* ===== Dashboard Statistics ===== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  border-left: 5px solid #ff9f43;
+  transition: 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card h3 {
+  color: #777;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.stat-card h2 {
+  color: #20243a;
+  font-size: 28px;
+}
+
+/* ===== Welcome Section ===== */
+.welcome-card {
+  margin-top: 30px;
+  padding: 30px;
+  border-radius: 14px;
+  background: linear-gradient(120deg, #ff9f43, #ffbe76);
+  color: #20243a;
+  box-shadow: 0 5px 15px rgba(255,159,67,0.2);
+}
+
+.welcome-card h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.welcome-card p {
+  line-height: 1.6;
+}
+
+/* ===== Food Management ===== */
+.food-section {
+  margin-top: 35px;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.section-heading h2 {
+  color: #20243a;
+}
+
+.section-heading span {
+  color: #777;
+}
+
+/* ===== Buttons ===== */
+.add-button,
+.save-button {
+  background: #ff9f43;
+  color: #20243a;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-button:hover,
+.save-button:hover {
+  background: #f28c28;
+  transform: translateY(-2px);
+}
+
+.edit-button,
+.delete-button,
+.cancel-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 8px;
+  transition: 0.3s;
+}
+
+.edit-button {
+  background: #e8efff;
+  color: #3159a5;
+}
+
+.edit-button:hover {
+  background: #3159a5;
+  color: white;
+}
+
+.delete-button {
+  background: #ffe5e5;
+  color: #c62828;
+}
+
+.delete-button:hover {
+  background: #c62828;
+  color: white;
+}
+
+.cancel-button {
+  background: #e5e5e5;
+  color: #333;
+}
+
+/* ===== Food Form ===== */
+.food-form {
+  display: block;
+  position: relative;
+  width: 100%;
+  background: #fff8f0;
+  border: 2px solid #ffbd7a;
+  padding: 28px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+  animation: formAppear 0.3s ease;
+}
+
+.food-form h2 {
+  color: #20243a;
+  margin-bottom: 22px;
+}
+
+.food-form input:not([type="checkbox"]),
+.food-form textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  margin: 8px 0 18px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 15px;
+  background: white;
+  outline: none;
+}
+
+.food-form input:focus,
+.food-form textarea:focus {
+  border-color: #ff9f43;
+  box-shadow: 0 0 0 3px rgba(255,159,67,0.15);
+}
+
+.food-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.food-form label {
+  display: block;
+  color: #333;
+  font-weight: 600;
+}
+
+.food-form input[type="checkbox"] {
+  margin: 12px 8px 12px 0;
+  accent-color: #ff9f43;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+/* ===== Food Cards ===== */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.food-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+  transition: 0.3s;
+}
+
+.food-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.09);
+}
+
+.food-details h3 {
+  color: #20243a;
+  margin-bottom: 12px;
+  font-size: 19px;
+}
+
+.food-details p {
+  color: #777;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.food-details h4 {
+  color: #f28c28;
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.available,
+.unavailable {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.available {
+  color: #168044;
+  background: #e2f7eb;
+}
+
+.unavailable {
+  color: #c62828;
+  background: #ffe5e5;
+}
+
+.food-actions {
+  margin-top: 20px;
+}
+
+/* ===== Messages ===== */
+.error-message {
+  color: #c62828;
+  background: #ffe5e5;
+  padding: 12px;
+  border-radius: 7px;
+  margin-bottom: 15px;
+}
+
+.success-message {
+  color: #168044;
+  background: #e2f7eb;
+  padding: 12px;
+  border-radius: 7px;
+  margin-bottom: 15px;
+}
+
+/* ===== Animation ===== */
+@keyframes formAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: auto;
+    min-width: 0;
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .topbar {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .section-heading {
+    flex-wrap: wrap;
+  }
+}
